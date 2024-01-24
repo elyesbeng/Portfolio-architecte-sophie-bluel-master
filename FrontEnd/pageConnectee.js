@@ -130,3 +130,40 @@ boutonFiltrer4.addEventListener("click", function () {
     }
 );
 
+const modalContainer = document.querySelector(".modal-container");
+const modalTriggers = document.querySelectorAll(".modal-trigger");
+const galleryModal= document.querySelector(".gallery-modal")
+
+modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
+
+function creationTravaux2(travaux){
+    for (let i = 0; i < travaux.length; i++) {
+    
+        const article = travaux[i];
+    
+        const articleElement = document.createElement("figure");
+        articleElement.id = "figure" + article.id;
+        const imageElement = document.createElement("img");
+        imageElement.src = article.imageUrl;
+        imageElement.alt = article.title;
+    
+        const nomElement = document.createElement("figcaption");
+        nomElement.innerText = article.title;
+    
+        const gallery = document.querySelector(".gallery");
+
+        articleElement.style.width = '10%';
+        articleElement.style.height = '10%';
+    
+        galleryModal.appendChild(articleElement);
+        articleElement.appendChild(imageElement);
+        articleElement.appendChild(nomElement);
+        
+    }
+    }
+
+function toggleModal(){
+  modalContainer.classList.toggle("active");
+    creationTravaux2(travaux);
+  
+}
