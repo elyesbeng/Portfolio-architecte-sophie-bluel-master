@@ -147,17 +147,14 @@ function creationTravaux2(travaux){
         imageElement.src = article.imageUrl;
         imageElement.alt = article.title;
     
-        const nomElement = document.createElement("figcaption");
-        nomElement.innerText = article.title;
-    
         const gallery = document.querySelector(".gallery");
 
         articleElement.style.width = '10%';
         articleElement.style.height = '10%';
+        imageElement.style.height = '100px';
     
         galleryModal.appendChild(articleElement);
         articleElement.appendChild(imageElement);
-        articleElement.appendChild(nomElement);
         
     }
     }
@@ -167,3 +164,6 @@ function toggleModal(){
     creationTravaux2(travaux);
   
 }
+
+const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
+
