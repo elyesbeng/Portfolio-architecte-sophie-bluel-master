@@ -25,13 +25,14 @@ boutonEnvoi.addEventListener("click", async function (event) {
         }
       
   
-        if (response.status >200);{
+        else (response.status >200);{
         motDePasseOublie.style.visibility = 'visible';
   
         };
   
       const token = response.json;
       const value = token.token;
+      localStorage.setItem(token.value);
       console.log(token)});
   
         
@@ -40,7 +41,3 @@ boutonEnvoi.addEventListener("click", async function (event) {
         
         
         });
-
-        
-
-      

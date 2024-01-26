@@ -132,7 +132,9 @@ boutonFiltrer4.addEventListener("click", function () {
 
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
-const galleryModal= document.querySelector(".gallery-modal")
+const galleryModal= document.querySelector(".gallery-modal");
+const modalContainer2 = document.querySelector(".modal-container2");
+
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
@@ -146,24 +148,37 @@ function creationTravaux2(travaux){
         const imageElement = document.createElement("img");
         imageElement.src = article.imageUrl;
         imageElement.alt = article.title;
+        const btnSupprimer = document.createElement("button");
+        btnSupprimer.className = "bouton-supprimer-travaux";
+        const btnSupprimerIcone = document.createElement("img");
+        btnSupprimerIcone.src = "..\FrontEnd\assets\images\trash-can-solid.svg";
     
-        const gallery = document.querySelector(".gallery");
-
         articleElement.style.width = '10%';
         articleElement.style.height = '10%';
         imageElement.style.height = '100px';
     
         galleryModal.appendChild(articleElement);
         articleElement.appendChild(imageElement);
+        imageElement.appendChild(btnSupprimer);
+        btnSupprimer.appendChild(btnSupprimerIcone);
         
     }
     }
+    creationTravaux2(travaux);
 
 function toggleModal(){
-  modalContainer.classList.toggle("active");
-    creationTravaux2(travaux);
+    modalContainer.classList.toggle("active");
   
 }
 
-const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
+function toggleModal2(){
+    modalContainer2.style.visibility = "visible";
+    
+}
 
+const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
+btnAjoutTravaux.addEventListener("click",toggleModal2);
+
+function suppressionTravaux(){
+    travaux.splice([i],1);
+}

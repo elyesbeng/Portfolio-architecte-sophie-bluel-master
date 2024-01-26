@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+b, u, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -326,6 +326,23 @@ button:hover{
 	flex-direction: column;
 	align-items: center;
   }
+
+  .modal-container2 {
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	transition: visibility 0.4s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+
+  .modal-container2.active {
+	visibility: visible;
+  }
+
   .modal-container.active {
 	/* display: block; */
 	visibility: visible;
@@ -401,4 +418,10 @@ button:hover{
 
   .modal-trigger2{
 	display: none;
+  }
+
+  .bouton-supprimer-travaux{
+	position: absolute;
+	top: 5px;
+	right: 5px;
   }

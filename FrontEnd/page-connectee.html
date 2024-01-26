@@ -44,10 +44,25 @@
         </div>
         <div class="modal-container">
             <div class="overlay modal-trigger"></div>
-            <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="dialogDesc">
+            <div class="modal" role="dialog">
                 <button aria-label="close modal" class="close-modal modal-trigger">X</button>
                 <h1 id="modalTitle">Galerie photo</h1>
                 <div class="gallery-modal"></div>
+                <div class="ajout-travaux-div"><button class="ajout-travaux-btn">Ajouter une photo </button></div>
+                
+              </div>
+        </div>
+        <div class="modal-container2">
+            <div class="overlay modal-trigger"></div>
+            <div class="modal" role="dialog" aria-labelledby="modalTitle">
+                <button aria-label="close modal" class="close-modal modal-trigger">X</button>
+                <h1 id="modalTitle">ajouter des photos</h1>
+                <form action="#" method="post">
+                    <label for="name">Nom</label>
+                    <input type="text" name="name" id="name">
+                    <label for="image">Photo</label>
+                    <input type="file" name="image" id="image">
+                </form>
                 <div class="ajout-travaux-div"><button class="ajout-travaux-btn">Ajouter une photo </button></div>
                 
               </div>
