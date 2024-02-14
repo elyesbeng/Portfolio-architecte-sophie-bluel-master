@@ -145,26 +145,39 @@ function creationTravaux2(travaux){
     
         const articleElement = document.createElement("figure");
         articleElement.id = "figure" + article.id;
+        articleElement.style.position = "relative";
         const imageElement = document.createElement("img");
         imageElement.src = article.imageUrl;
         imageElement.alt = article.title;
         const btnSupprimer = document.createElement("button");
         btnSupprimer.className = "bouton-supprimer-travaux";
-        const btnSupprimerIcone = document.createElement("img");
-        btnSupprimerIcone.src = "..\FrontEnd\assets\images\trash-can-solid.svg";
+        const btnSupprimerIcone = document.createElement("i");
+        btnSupprimerIcone.className = "fa-solid fa-trash";
     
-        articleElement.style.width = '10%';
+        articleElement.style.width = 'auto';
         articleElement.style.height = '10%';
         imageElement.style.height = '100px';
     
         galleryModal.appendChild(articleElement);
         articleElement.appendChild(imageElement);
-        imageElement.appendChild(btnSupprimer);
+        articleElement.appendChild(btnSupprimer);
         btnSupprimer.appendChild(btnSupprimerIcone);
         
+        
     }
-    }
-    creationTravaux2(travaux);
+
+    
+}
+creationTravaux2(travaux);
+
+const token = window.localStorage.getItem("token");
+const reponseSuppression = fetch('http://localhost:5678/api/works'+btnSupprimer.id, {
+        method: 'DELETE',
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+token
+    },
+})
 
 function toggleModal(){
     modalContainer.classList.toggle("active");
@@ -172,13 +185,23 @@ function toggleModal(){
 }
 
 function toggleModal2(){
-    modalContainer2.style.visibility = "visible";
+
+    const ModalTitle =document.querySelector("modalTitle");
+    ModalTitle.innerHTML ="";
+    galleryModal.innerHTML = "";
+    
+    const formulaireAjoutTravaux = document.createElement("form");
+    const ajoutImage = document.createElement("input");
+    const label = document.createElement ("label");
+    const ajoutTitre = document.createElement("input");
+    const ajoutCategorie = document.createElement("input");
+
+    ajoutImage.type = "file";
+    ajoutImage.id = "ajoutImage";
+
     
 }
 
 const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
 btnAjoutTravaux.addEventListener("click",toggleModal2);
 
-function suppressionTravaux(){
-    travaux.splice([i],1);
-}

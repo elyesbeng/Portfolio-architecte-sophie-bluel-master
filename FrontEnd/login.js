@@ -9,18 +9,24 @@ boutonEnvoi.addEventListener("click", async function (event) {
       password: password,
     };
     // Appel à l'API pour uploader les données du formulaire
-    fetch('http://localhost:5678/api/users/login', {
+    const response = await fetch('http://localhost:5678/api/users/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-    })
-      .then((response) => {
-        console.log(response);
+    });
+      
+       /**  console.log(response.json()); */
 
         if (response.status == 200){
-          window.location.href='http://127.0.0.1:5500/FrontEnd/page-connectee.html'
+          const data = await response.json();
+          console.log(data);
+          const value = data.token;
+          localStorage.setItem("token", value);
+          console.log(value);
+        
+          window.location.href='http://127.0.0.1:5500/index.html'
           
         }
       
@@ -29,14 +35,16 @@ boutonEnvoi.addEventListener("click", async function (event) {
         motDePasseOublie.style.visibility = 'visible';
   
         };
-  
-      const token = response.json;
-      const value = token.token;
-      localStorage.setItem(token.value);
-      console.log(token)});
+      const data = await response.json();
+      console.log(data);
+      const value = data.token;
+      localStorage.setItem("token", value);
+      console.log(value);
+
+
+      
   
         
-        return response.json();
         
         
         

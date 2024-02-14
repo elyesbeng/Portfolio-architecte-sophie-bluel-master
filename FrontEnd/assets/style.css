@@ -61,6 +61,7 @@ header {
 .entete{
 	display: flex;
 	justify-content: space-between;
+	padding: 20px ;
 }
 section {
 	margin: 50px 0
@@ -284,12 +285,13 @@ button:hover{
 .entete-connectee{
 	background-color: black;
 	color: white;
-	width: 100%;
-	height: 50px;
+	display: none;
+	height: 59px;
 	margin: 0px;
-	display: flex;
 	align-items: center;
 	justify-content: center;
+	
+
 }
 
 .header-connecte{
@@ -407,7 +409,7 @@ button:hover{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 40px;
+	gap: 10px;
   }
 
   .ajout-travaux-div{
@@ -424,4 +426,86 @@ button:hover{
 	position: absolute;
 	top: 5px;
 	right: 5px;
+	width: 9px;
+	height: 10px;
+	font-size: 8px;
+	border: none;
+	border-radius: 0px;
+	background-color: black;
+	color: white;
+	align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+
+  .bouton-ouverture-modale{
+	display: none;
+	margin-top: 10px;
+  }
+
+
+  .formulaire-modale{
+	display: flex;
+	flex-direction: column;
+  }
+
+  .input-modal{
+	border: none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	height: 35px;
+	
+  }
+
+  .formulaire-ajout-travaux{
+	display: none;
+	justify-content: center;
+	width: 100%;
+  }
+
+
+  .formulaire-ajout-travaux-retour{
+	display: none;
+	justify-content: center;
+  }
+
+  .bouton-retour{
+	position: absolute;
+	left: 25px;
+	top: 25px;
+  }
+
+  input[type=file]::file-selector-button {
+	margin-right: 8px;
+	border: none;
+	padding: 8px 12px;
+	cursor: pointer;
+	position: absolute;
+	bottom: 25px;
+	left: 75px;
+	width: 50%;
+	border: blue 3px solid;
+	border-radius: 25px;
+	background-color: aqua;
+
+  }
+
+  #inputImage{
+	display: none;
+  }
+
+  .labelImage{
+	background-color: aliceblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20px;
+	position: relative;
+	height: 169px;
+  }
+
+  #apercuImage{
+	align-self: center;
+	height: 150px;
+	width: 50%;
   }

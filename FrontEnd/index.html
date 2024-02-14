@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
@@ -9,16 +9,18 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+    <script src="https://kit.fontawesome.com/cf88c5fc62.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<header>
+<header class="header-connecte">
+    <div class="entete-connectee"><i class="fa-regular fa-pen-to-square"></i><p>Mode edition</p></div>
 	<div class="entete">
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li><a href="../FrontEnd/login-page.html">login</a></li>
+			<li><a href="login-page.html" class="login">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -37,7 +39,27 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="titre-portfolio-modifier">
+            <h2>Mes Projets</h2>
+            <div class="bouton-ouverture-modale">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<a role="button" class="bouton-modifier modal-btn modal-trigger">Modifier</a>
+			</div>
+        </div>
+        <div class="modal-container">
+            <div class="overlay modal-trigger"></div>
+            <div class="modal" role="dialog">
+                <button aria-label="close modal" class="close-modal modal-trigger">X</button>
+                <h1 id="modalTitle">Galerie photo</h1>
+                <div class="gallery-modal"></div>
+				<div class="formulaire-ajout-travaux-retour">
+					<a role="button" class="bouton-retour"><i class="fa-solid fa-arrow-left"></i></a>
+					<div class="formulaire-ajout-travaux"></div>
+				</div>
+                <div class="ajout-travaux-div"><button class="ajout-travaux-btn">Ajouter une photo </button></div>
+                
+              </div>
+        </div>
 		<div class="filtres">
 			<button class="btn-filtre">Tous</button>
 			<button class="btn-filtrer2">Object</button>
@@ -69,6 +91,6 @@
 		</ul>
 	</nav>
 </footer>
-<script type="module" src="affichage.js"></script>
+<script type="module" src="./affichage.js"></script>
 </body>
 </html>
