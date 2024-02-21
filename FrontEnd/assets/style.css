@@ -28,6 +28,9 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+a{
+	cursor: pointer;
+}
 body {
 	line-height: 1;
 }
@@ -447,7 +450,10 @@ button:hover{
 
   .formulaire-modale{
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
   }
 
   .input-modal{
@@ -499,13 +505,49 @@ button:hover{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 20px;
+	padding-left: 20px;
 	position: relative;
 	height: 169px;
+	gap: 20px;
   }
 
   #apercuImage{
 	align-self: center;
 	height: 150px;
 	width: 50%;
+  }
+
+  .bouton-ajout-travaux{
+	border: 2px solid #1D6154;
+	color: #1D6154;
+	border-radius: 25px;
+	padding: 8px 15px 8px 15px;
+	cursor: pointer;
+  }
+
+  .bouton-ajout-travaux:hover{
+	color: white;
+	background-color: #1D6154;
+  }
+
+  .labelImage-button{
+	border-radius: 25px;
+    background: mediumturquoise;
+    padding: 15px 8px 15px 8px;
+    align-self: center;
+}
+  
+  .FA-labelImage{
+	font-size: 50px;
+	align-self: center;
+	opacity: 0.2;
+  }
+
+  .figure-travaux{
+	width: auto;
+	height: 10%;
+  }
+
+  .figure-travaux img{
+	height: 100px;
   }

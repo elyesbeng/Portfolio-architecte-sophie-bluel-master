@@ -1,6 +1,7 @@
 const reponse = await fetch('http://localhost:5678/api/works');
 const travaux = await reponse.json();
 /**Affichage des travaux */
+const gallery = document.querySelector(".gallery");
 function creationTravaux(travaux){
 for (let i = 0; i < travaux.length; i++) {
 
@@ -11,11 +12,11 @@ for (let i = 0; i < travaux.length; i++) {
     const imageElement = document.createElement("img");
     imageElement.src = article.imageUrl;
     imageElement.alt = article.title;
+    articleElement.className = "figureGallery";
 
     const nomElement = document.createElement("figcaption");
     nomElement.innerText = article.title;
 
-    const gallery = document.querySelector(".gallery");
 
     gallery.appendChild(articleElement);
     articleElement.appendChild(imageElement);
@@ -215,8 +216,14 @@ function creationTravaux2(travaux){
                         
                 },
             });
+            console.log(article.id);
             articleElement.remove(article.id);
-
+            var elementASupprimer = document.getElementById("figure" + article.id);
+                if (elementASupprimer) {
+                    elementASupprimer.remove();
+                } else {
+                    console.log("L'élément avec l'ID spécifié n'existe pas dans le DOM.");
+                };
         });
         
     }
@@ -236,20 +243,31 @@ function toggleModal(){
 
 function createFormulaireModal(){
 
+    // Changement du titre
+    const titreModale = document.querySelector("#modalTitle");
+    titreModale.innerHTML = "Ajoutez une photo";
     // Création du formulaire
     var formulaire = document.createElement('form');
-    formulaire.style.display = 'flex';
-    formulaire.style.flexDirection = 'column';
-    formulaire.style.justifyContent = 'center';
-    formulaire.style.gap = '20px';
-    formulaire.style.width = '100%';
+    formulaire.className = "formulaire-modale";
 
     
     // Création de l'élément input pour l'image
     var inputImage = document.createElement('input');
     var labelImage = document.createElement('label');
+    var texteLabelImage = document.createElement('div');
+    var texteLabelImage2 = document.createElement('div');
+    var texteLabelImage3 = document.createElement('div');
     inputImage.id = "inputImage";
-    labelImage.innerHTML = 'Selectionnez un fichier';
+    texteLabelImage.innerHTML = '<i class="fa-solid fa-image"></i>';
+    texteLabelImage2.innerHTML = 'Ajoutez une photo';
+    texteLabelImage3.innerHTML = 'jpg, png 4mo max';
+    texteLabelImage.className = 'FA-labelImage';
+    texteLabelImage2.className = "labelImage-button";
+    texteLabelImage3.style.alignSelf = "center";
+    labelImage.appendChild(texteLabelImage);
+    labelImage.appendChild(texteLabelImage2);
+    labelImage.appendChild(texteLabelImage3);
+
     labelImage.className = "labelImage";
     labelImage.setAttribute ("for", "inputImage");
     inputImage.style.height = '169px'
@@ -274,8 +292,9 @@ function createFormulaireModal(){
             // Afficher l'aperçu de l'image
             apercuImage.src = urlImage;
             apercuImage.style.display = 'inline';
-            /**const fileName = fichier.name;
-            labelImage.innerHTML = fileName;**/
+            texteLabelImage.style.display = "none";
+            texteLabelImage2.style.display = "none";
+            texteLabelImage3.style.display = "none";
             
         } else {
             // Cacher l'aperçu de l'image s'il n'y a pas de fichier sélectionné
@@ -312,12 +331,13 @@ function createFormulaireModal(){
     // Création du bouton de soumission
     var boutonSubmit = document.createElement('div');
     boutonSubmit.textContent = 'Soumettre';
+    boutonSubmit.className = "bouton-ajout-travaux ";
     formulaire.appendChild(boutonSubmit);
     boutonSubmit.style.alignSelf = "center";
     boutonSubmit.addEventListener("click", function() {
         console.log(inputTitre.value);
         console.log(inputImage.files[0]);
-        console.log(selectCategorie.value);    
+        console.log(selectCategorie.value); 
         // Créer un objet pour stocker les informations du formulaire
         /**var NouveauTravail = {
             title: titreImage,
@@ -342,20 +362,85 @@ function createFormulaireModal(){
             formData.append('image', inputImage.files[0]);
             formData.append('title', inputTitre.value);
             formData.append('category', selectCategorie.value);
-            const reponse2 = fetch ("http://localhost:5678/api/works", {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer '+token
-                },
-                body: formData
-        })
-        console.log(formData.value);
-    });
-
-
-    formulaireAjoutModale.appendChild(formulaire);
+            async function postData() {
+                try {
+                    const response2 = await fetch("http://localhost:5678/api/works", {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: formData
+                    });
+                    
+                    if (response2.status === 201) {
+                        console.log('La création a réussi.');
+            
+                        // Créer les éléments HTML pour le nouveau travail
+                        const articleElement = document.createElement("figure");
+                        const imageElement = document.createElement("img");
+                        const nomElement = document.createElement("figcaption");
+            
+                        // Assigner les attributs et le contenu aux éléments
+                        articleElement.id = "figure" + (travaux.length + 1);
+                        const reponseJSON = await response2.json();
+                        console.log(reponseJSON);
+                        imageElement.src = reponseJSON.imageUrl;
+                        imageElement.alt = inputTitre.value;
+                        nomElement.innerText = inputTitre.value;
+                        labelImage.innerText = "";
+                        const articleElementMODAL = document.createElement("figure");
+                        articleElementMODAL.className = 'figure-travaux';
+                        articleElementMODAL.id = "figure" + articleElementMODAL.id;
+                        articleElementMODAL.style.position = "relative";
+                        const imageElementMODAL = document.createElement("img");
+                        imageElementMODAL.src = reponseJSON.imageUrl;
+                        imageElementMODAL.alt = inputTitre.title;
+                        const btnSupprimer = document.createElement("button");
+                        btnSupprimer.className = "bouton-supprimer-travaux";
+                        const btnSupprimerIcone = document.createElement("i");
+                        btnSupprimerIcone.className = "fa-solid fa-trash";
+                        btnSupprimer.appendChild(btnSupprimerIcone);
+                        btnSupprimer.addEventListener('click', function() {
+                            const token = window.localStorage.getItem("token");
+                            const reponseSuppression = fetch('http://localhost:5678/api/works/'+articleElementMODAL.id, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer '+token
+                                        
+                                },
+                            })
+                        });
+                        articleElementMODAL.appendChild(imageElementMODAL);
+                        articleElementMODAL.appendChild(btnSupprimer);
     
+
+            
+                        // Ajouter les éléments au DOM
+                        articleElement.appendChild(imageElement);
+                        articleElement.appendChild(nomElement);
+                        document.querySelector(".gallery-modal").appendChild(articleElementMODAL);
+                        document.querySelector(".gallery").appendChild(articleElement); // Ajoutez cet élément à votre conteneur de travaux existant
+                        retourModale();
+                    } else {
+                        console.log("Erreur dans l'ajout" + reponse2);
+                        // Ne rien faire ou effectuer d'autres actions nécessaires
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la requête :', error);
+                }
+            }
+            
+            // Appel de la fonction postData
+            postData();
+        });
+        formulaireAjoutModale.appendChild(formulaire);
     };
+
+
+    
+    
+    ;
     console.log(travaux);
 
 const formulaireAjoutModale = document.querySelector(".formulaire-ajout-travaux");
@@ -372,6 +457,8 @@ function retourModale(){
     galleryModal.style.display = 'flex';
     formulaireAjoutModale.style.display = 'none';
     formulaireAjoutTravauxRetour.style.display = 'none';
+    const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
+    btnAjoutTravaux.style.display = 'block';
 };
   
 const btnAjoutTravaux = document.querySelector(".ajout-travaux-btn");
