@@ -2,6 +2,7 @@ const reponse = await fetch('http://localhost:5678/api/works');
 const travaux = await reponse.json();
 /**Affichage des travaux */
 const gallery = document.querySelector(".gallery");
+/**fonctions */
 function creationTravaux(travaux){
 for (let i = 0; i < travaux.length; i++) {
 
@@ -339,25 +340,6 @@ function createFormulaireModal(){
         console.log(inputImage.files[0]);
         console.log(selectCategorie.value); 
         // Créer un objet pour stocker les informations du formulaire
-        /**var NouveauTravail = {
-            title: titreImage,
-            image: ImageTravail,
-            categoryId: CategorieImage,
-            userId: 1,
-            category: options[CategorieImage]
-        };
-
-        const token = window.localStorage.getItem("token");
-            const reponseajout = fetch('http://localhost:5678/api/works/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+token
-                        
-                },
-            });
-            travaux.push(NouveauTravail);*/
-
             const formData = new FormData();
             formData.append('image', inputImage.files[0]);
             formData.append('title', inputTitre.value);
@@ -390,7 +372,7 @@ function createFormulaireModal(){
                         labelImage.innerText = "";
                         const articleElementMODAL = document.createElement("figure");
                         articleElementMODAL.className = 'figure-travaux';
-                        articleElementMODAL.id = "figure" + articleElementMODAL.id;
+                        articleElementMODAL.id = "figure" + articleElementMODAL.id ++ ;
                         articleElementMODAL.style.position = "relative";
                         const imageElementMODAL = document.createElement("img");
                         imageElementMODAL.src = reponseJSON.imageUrl;
@@ -402,6 +384,7 @@ function createFormulaireModal(){
                         btnSupprimer.appendChild(btnSupprimerIcone);
                         btnSupprimer.addEventListener('click', function() {
                             const token = window.localStorage.getItem("token");
+                            console.log(articleElementMODAL.id);
                             const reponseSuppression = fetch('http://localhost:5678/api/works/'+articleElementMODAL.id, {
                                 method: 'DELETE',
                                 headers: {
@@ -410,6 +393,7 @@ function createFormulaireModal(){
                                         
                                 },
                             })
+                            articleElementMODAL.remove(articleElementMODAL.id);
                         });
                         articleElementMODAL.appendChild(imageElementMODAL);
                         articleElementMODAL.appendChild(btnSupprimer);
@@ -474,7 +458,8 @@ btnAjoutTravaux.addEventListener("click", function(){
 boutonRetourModale.addEventListener("click", function(){
     btnAjoutTravaux.style.display = 'block';
     retourModale(galleryModal);
-    formulaireAjoutModale.innerHTML = "";       
+    formulaireAjoutModale.innerHTML = "";
+    document.querySelector("#modalTitle").innerHTML = "Galerie photo";       
 });
 
-/** Envoi du formulaire ajout des nouveaux elements a la liste "travaux" */
+ 
