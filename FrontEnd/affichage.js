@@ -397,18 +397,33 @@ function createFormulaireModal(){
                         const btnSupprimerIcone = document.createElement("i");
                         btnSupprimerIcone.className = "fa-solid fa-trash";
                         btnSupprimer.appendChild(btnSupprimerIcone);
-                        btnSupprimer.addEventListener('click', function() {
+                        btnSupprimer.addEventListener('click', async function() {
                             const token = window.localStorage.getItem("token");
-                            console.log(articleElementMODAL.id);
-                            const reponseSuppression = fetch('http://localhost:5678/api/works/'+articleElementMODAL.id, {
-                                method: 'DELETE',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer '+token
-                                        
-                                },
-                            })
-                            articleElementMODAL.remove(articleElementMODAL.id);
+                        
+                            try {
+                                const reponseSuppression = await fetch('http://localhost:5678/api/works/' + articleElementMODAL.id, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + token
+                                    },
+                                });
+                        
+                                if (reponseSuppression.status < 205) {
+                                    console.log('Suppression réussie dans l\'API.');
+                        
+                                    // Supprimer l'élément du DOM
+                                    articleElementMODAL.remove();
+                                    articleElement.remove();
+                                    console.log(travaux);
+                                } else {
+                                    console.log('La suppression dans l\'API a échoué.');
+                                    // Gérer les échecs de suppression dans l'API, si nécessaire
+                                }
+                            } catch (error) {
+                                console.error('Erreur lors de la suppression dans l\'API :', error);
+                                // Gérer les erreurs de suppression dans l'API, si nécessaire
+                            }
                         });
                         articleElementMODAL.appendChild(imageElementMODAL);
                         articleElementMODAL.appendChild(btnSupprimer);
