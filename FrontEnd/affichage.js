@@ -156,6 +156,7 @@ if (token !== null && token !== "") {
     enteteConnectee.style.display = "flex";
     ouvertureModale.style.display = "block";
     boutonLogin.innerHTML = "logout";
+    boutonLogin.href = "#";
     boutonLogin.addEventListener('click', function(){
         localStorage.removeItem("token");
         window.location.href='http://127.0.0.1:5500/index.html'
@@ -288,15 +289,29 @@ function createFormulaireModal(){
     
         // Vérifier si un fichier a été sélectionné
         if (fichier) {
-            // Créer un objet URL pour le fichier sélectionné
-            var urlImage = URL.createObjectURL(fichier);
-            // Afficher l'aperçu de l'image
-            apercuImage.src = urlImage;
-            apercuImage.style.display = 'inline';
-            texteLabelImage.style.display = "none";
-            texteLabelImage2.style.display = "none";
-            texteLabelImage3.style.display = "none";
-            
+            // Vérifier le type de fichier (PNG ou JPG)
+            if (fichier.type === 'image/jpeg' || fichier.type === 'image/png') {
+                // Vérifier la taille du fichier (4 Mo maximum)
+                if (fichier.size <= 4 * 1024 * 1024) {
+                    // Créer un objet URL pour le fichier sélectionné
+                    var urlImage = URL.createObjectURL(fichier);
+                    
+                    // Afficher l'aperçu de l'image
+                    apercuImage.src = urlImage;
+                    apercuImage.style.display = 'inline';
+                    texteLabelImage.style.display = "none";
+                    texteLabelImage2.style.display = "none";
+                    texteLabelImage3.style.display = "none";
+                } else {
+                    // Afficher un message d'erreur si la taille du fichier est supérieure à 4 Mo
+                    alert('La taille du fichier dépasse 4 Mo. Veuillez sélectionner un fichier plus petit.');
+                    inputImage.value = ''; // Réinitialiser la valeur de l'input de fichier
+                }
+            } else {
+                // Afficher un message d'erreur si le type de fichier n'est pas PNG ou JPG
+                alert('Veuillez sélectionner un fichier au format PNG ou JPG.');
+                inputImage.value = ''; // Réinitialiser la valeur de l'input de fichier
+            }
         } else {
             // Cacher l'aperçu de l'image s'il n'y a pas de fichier sélectionné
             apercuImage.src = '#';
