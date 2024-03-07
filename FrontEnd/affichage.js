@@ -159,7 +159,7 @@ if (token !== null && token !== "") {
     boutonLogin.href = "#";
     boutonLogin.addEventListener('click', function(){
         localStorage.removeItem("token");
-        window.location.href='http://127.0.0.1:5500/index.html'
+        window.location.href = `${window.location.origin}/index.html`;
     })
     boutonsFiltres.style.display = "none";
     console.log(token);
@@ -359,6 +359,13 @@ function createFormulaireModal(){
             formData.append('image', inputImage.files[0]);
             formData.append('title', inputTitre.value);
             formData.append('category', selectCategorie.value);
+            const titreInput = document.getElementById("titre");
+                
+            if (!inputTitre.value) {
+                    // Champ "titre" non rempli, afficher une alerte
+                    alert("Veuillez remplir le champ 'Titre'.");
+                }
+            else{
             async function postData() {
                 try {
                     const response2 = await fetch("http://localhost:5678/api/works", {
@@ -447,7 +454,7 @@ function createFormulaireModal(){
             
             // Appel de la fonction postData
             postData();
-        });
+        }});
         formulaireAjoutModale.appendChild(formulaire);
     };
 

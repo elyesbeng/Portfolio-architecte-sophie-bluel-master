@@ -26,7 +26,7 @@ boutonEnvoi.addEventListener("click", async function (event) {
           localStorage.setItem("token", value);
           console.log(value);
         
-          window.location.href='http://127.0.0.1:5500/index.html'
+          window.location.href = `${window.location.origin}/index.html`;
           
         }
       
